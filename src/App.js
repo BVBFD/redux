@@ -1,23 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import { useGetUsersQuery } from './services/users';
 
 function App() {
+  const { data, error, isLoading, isSuccess, isError } = useGetUsersQuery();
+  console.log(error);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Welcome to React Redux Toolkit RTK Query</h1>
+      {isLoading && 'Loading...'}
+      {isError && 'error...'}
+      {isSuccess &&
+        data &&
+        data.map((user, i) => <h1 key={user.id}>{user.name}</h1>)}
     </div>
   );
 }
